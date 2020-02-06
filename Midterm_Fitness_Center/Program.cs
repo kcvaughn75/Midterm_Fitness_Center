@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Midterm_Fitness_Center
 {
@@ -6,7 +7,16 @@ namespace Midterm_Fitness_Center
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<string> ClubName = new List<string>
+            {
+
+
+            };
+            List<string> ClubAddress = new List<string>
+            {
+
+            };
+
         }
     }
 }

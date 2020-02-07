@@ -18,6 +18,7 @@ namespace Midterm_Fitness_Center
         // methods
         public override void CheckIn(Club club)
         {
+            // CheckedInto = club.name;
             // Member points accrue by 10 ppints
             MemberPoints += 10;
         }
@@ -33,8 +34,10 @@ namespace Midterm_Fitness_Center
 
         public void DisplayInfo()       // <-- Needs to be added to Member and single-member classes
         {
-            Console.WriteLine("\t***MULTI-CLUB MEMBER ***");
             Console.WriteLine($"\n\nMember ID: {Id}\t\tName: {LastName}, {FirstName}\tFees: {Fees}");
+            Console.WriteLine($"You have {MemberPoints} member points!");
+            Console.WriteLine("\t***MULTI-CLUB MEMBER ***");
+
         }
 
         public static string GetUserInput(string message)

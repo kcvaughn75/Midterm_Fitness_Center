@@ -6,10 +6,19 @@ namespace Midterm_Fitness_Center
 {
     class DisplayMember
     {
-        public static int DispMember(List<Member> memberList)
+        public static void DispMember(List<Member> memberList, int userIndex)
+        {
+            
+            if (userIndex != -1)  // if name or ID was found, display user's info
+            {
+                memberList[userIndex].DisplayInfo;        // <-- NEEDS TO BE IMPLEMENTED IN PARENT AND SINGLE MEMBER CLASS
+            }
+        }
+
+        public static int SearchMember(List<Member> memberList)
         {
             int foundIt = -1;
-            
+
             Console.WriteLine("Would you like to look for a member by ID number or name?");
             Console.WriteLine($"1)\tID number");
             Console.WriteLine($"2)\tName?");
@@ -23,6 +32,7 @@ namespace Midterm_Fitness_Center
                     if (idSearch == memberList[i].Id)
                     {
                         foundIt = i;    // Store index for later
+                        break;
                     }
                 }
                 if (foundIt == -1)  // ID not found
@@ -41,9 +51,10 @@ namespace Midterm_Fitness_Center
                 {
                     if (lName.Trim().ToLower() == memberList[i].LastName.Trim().ToLower())
                     {
-                        if (fName.Trim().ToLower() == memberList[i].LastName.Trim().ToLower())
+                        if (fName.Trim().ToLower() == memberList[i].FirstName.Trim().ToLower())
                         {
                             foundIt = i;    // Store index for later
+                            break;
                         }
                     }
                 }
@@ -51,10 +62,6 @@ namespace Midterm_Fitness_Center
                 {
                     Console.WriteLine($"{userSelection} could not be found in the system.");
                 }
-            }
-            if (foundIt != -1)  // if name or ID was found, display user's info
-            {
-                memberList[foundIt].DisplayInfo;        // <-- NEEDS TO BE IMPLEMENTED IN PARENT AND SINGLE MEMBER CLASS
             }
             return foundIt;
         }

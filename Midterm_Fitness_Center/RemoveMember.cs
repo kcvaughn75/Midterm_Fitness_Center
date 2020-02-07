@@ -7,11 +7,11 @@ namespace Midterm_Fitness_Center
 {
     class RemoveMember
     {
-        public static void RmvMember(List<Member> memberList)
+        public static void RmvMember(List<Member> memberList, int userIndex)
         {
             int memberToDelete;
             // Find member to remove
-            memberToDelete = DispMember(memberList);
+            memberToDelete = SearchMember(memberList);
             if (memberToDelete == -1)
             {
                 Console.WriteLine("Could not remove member.");

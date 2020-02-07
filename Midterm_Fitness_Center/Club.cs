@@ -6,6 +6,7 @@ namespace Midterm_Fitness_Center
 {
     class Club
     {
+
         //properties
         public string Name { get; set; }
         public string Address { get; set; }
@@ -33,5 +34,7 @@ namespace Midterm_Fitness_Center
             Console.WriteLine();
         }
 
+
+        
     }
 }

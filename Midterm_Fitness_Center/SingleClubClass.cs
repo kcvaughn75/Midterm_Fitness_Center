@@ -1,74 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Midterm_Fitness_Center.Methods;
 
 namespace Midterm_Fitness_Center
 {
     class SingleClubClass : Member
     {    
-        //properties
-        public string HomeClub { get; set; }
-
-
         //default constructor
-        public SingleClubClass()
-        {
-
-        }
+        public SingleClubClass() { }
+        
 
         //overloaded constructor
-        public SingleClubClass(int iD, string firstName, string lastName, double fees, string homeClub)
+        public SingleClubClass(int id, string firstName, string lastName, string homeClub, double fees)
         {
-            Id = Id;
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Fees = fees;
             HomeClub = homeClub;
+            Fees = fees;
+            
         }
 
         //Wasn't sure if FindMemberByIdOrName method will work in this CheckIn method here?
         //will have to ccreate a bool variable and call below method here
 
-        public override void CheckIn(Club club)
+        public override void CheckIn(Club club, List<Member> members)
         {
-            string userName = GetUserInput("Please enter member name:");
-            int userId = int.Parse(GetUserInput("Please enter member ID:"));
-            //How can we bring in List value here?
-            bool temp = FindMemberByIdOrName(//ListName goes here, user Id, useName);
-            if (temp)
+
+            Member toCheckIn = Program.DispMember(members);
+            
+           // bool temp = FindMemberByIdOrName(//ListName goes here, user Id, useName);
+            if (club.Name == toCheckIn.HomeClub)
             {
-                Console.WriteLine($"Single club Member{userName} is checked in!");
+                toCheckIn.CheckedInto = club.Name;
+                Console.WriteLine($"Single club Member{toCheckIn.FirstName} is checked in!");
             }
             else
             {
-                Console.WriteLine($"{userName} is not a member of this club, but can drop in for $5 a day!");
-            }
-        }
-
-
-        //Are we using Member class or Club class here to pass the value? Becuase Check in method has parameter from Club  
-        /*public virtual bool FindMemberByIdOrName(List<Member> clubMember, int mId, string mName) 
-        {
-            bool retVal = false;
-            foreach(Member mInfo  in clubMember)
-            {
-                if (mInfo.Id == mId || mInfo.FirstName == mName)
+                Console.WriteLine($"{toCheckIn.FirstName} is not a member of this club, but can drop in for $5 a day!");
+                bool userContinue = UserSelection("Does the member want to pay (y/n)?", "y","n");
+                if (userContinue)
                 {
-                    retVal = true;
-                    break;
+                    toCheckIn.CheckedInto = club.Name;
+                    Console.WriteLine($"Single club Member{toCheckIn.FirstName} is checked in!");
+                    toCheckIn.Fees += 5;
+                    Console.WriteLine($"$5 has been added to the {toCheckIn.FirstName}'s monthly fees. Their total for this month is ${toCheckIn.Fees}");
                 }
             }
-            return retVal;
-        }*/
-
-
-        //Getting input from user
-        public string GetUserInput(string message)
-        {
-            Console.WriteLine(message);
-            return Console.ReadLine();
         }
 
+        public override void DisplayInfo()
+        {
+            base.DisplayInfo();
+            Console.WriteLine($"Home club: {HomeClub}");
+        }
+
+        public override void AddMember(List<Club> clubList, List<Member> members)
+        {
+            base.AddMember(clubList, members);
+            
+            int selectHomeClub = UserChoice(GetUserInput("Enter the number of the club to set as the home club?"), $"Please enter a number between 1-{clubList.Count}", clubList.Count);
+            Fees = 19.99;
+        }
 
     }
 }

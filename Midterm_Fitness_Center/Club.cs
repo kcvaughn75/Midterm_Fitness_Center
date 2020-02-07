@@ -26,11 +26,11 @@ namespace Midterm_Fitness_Center
 
         //Display Club method
 
-        public static void DisplayClubs(List<string> clubList)
+        public static void DisplayClubs(List<Club> clubList)
         {
-            foreach (string club in clubList)
+            for (int i = 0; i < clubList.Count; i++)
             {
-                Console.WriteLine(club);
+                Console.WriteLine($"{i + 1}. {clubList[i].Name}, {clubList[i].Address}");
             }
         }
 

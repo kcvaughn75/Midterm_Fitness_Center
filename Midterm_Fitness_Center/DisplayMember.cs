@@ -6,16 +6,18 @@ namespace Midterm_Fitness_Center
 {
     class DisplayMember
     {
-        public static void DispMember(List<Member> memberList, int userIndex)
+        public static Member DispMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
-            
+            int userIndex = FindMember(scMemberList, mcMemberList);
             if (userIndex != -1)  // if name or ID was found, display user's info
             {
-                memberList[userIndex].DisplayInfo;        // <-- NEEDS TO BE IMPLEMENTED IN PARENT AND SINGLE MEMBER CLASS
+                memberList[userIndex].DisplayInfo();
+                return memberList[userIndex];
             }
+            return memberList[userIndex];//work on validating this
         }
 
-        public static int SearchMember(List<Member> memberList)
+        public static int FindMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
             int foundIt = -1;
 
@@ -27,17 +29,10 @@ namespace Midterm_Fitness_Center
             {
                 Console.WriteLine("Please enter the ID number: ");
                 int idSearch = int.Parse(Console.ReadLine()); // <---- validation needed here!!!
-                for (int i = 0; i < memberList.Count; i++)  // Search systen for ID entered
+                int idSearchidx = IDSearch(idSearch, scMemberList, mcMemberList);
+                if (idSearchidx == -1)
                 {
-                    if (idSearch == memberList[i].Id)
-                    {
-                        foundIt = i;    // Store index for later
-                        break;
-                    }
-                }
-                if (foundIt == -1)  // ID not found
-                {
-                    Console.WriteLine($"{userSelection} could not be found in the system.");
+                    FindMember(scMemberList, mcMemberList);
                 }
             }
             else   // name search selected by user;
@@ -64,6 +59,38 @@ namespace Midterm_Fitness_Center
                 }
             }
             return foundIt;
+        }
+
+        public static int IDSearch(int idSearch, List<Member> scMemberList, List<Member> mcMemberList)
+        {
+            int foundIt = -1;
+
+            for (int i = 0; i < scMemberList.Count; i++)  // Search systen for ID entered
+            {
+                if (idSearch == scMemberList[i].Id)
+                {
+                    foundIt = i;    // Store index for later
+                    return foundIt;
+                }
+            }
+            if (foundIt == -1)  // ID not found
+            {
+                for (int i = 0; i < mcMemberList.Count; i++)  // Search systen for ID entered
+                {
+                    if (idSearch == mcMemberList[i].Id)
+                    {
+                        foundIt = i;    // Store index for later
+                        return foundIt;
+                    }
+                }
+            }
+            return foundIt;
+
+        }
+
+        public static int NameSearch(int nameSearch, List<Member> scMemberList, List<Member> mcMemberList)
+        {
+            return 0;
         }
     }
 }

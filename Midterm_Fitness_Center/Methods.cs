@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Midterm_Fitness_Center
@@ -68,13 +69,13 @@ namespace Midterm_Fitness_Center
                 Console.WriteLine(errorMsg);
                 return UserChoice(msg, errorMsg, limit);
             }
-
-
-
-
-
-
+        }
+        //returns sum of all fees accrued for specific member
+        public static double GenerateFees(Member currentMember)
+        {
+            return currentMember.Fees;
         }
 
+        
     }
 }

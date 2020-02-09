@@ -9,23 +9,25 @@ namespace Midterm_Fitness_Center
     {
         static void Main(string[] args)
         {
+            //Calling the login method from login class
+            Login.LoginStaff(Login.StaffLogin);
 
+            #region club list import
             List<Club> ClubList = new List<Club>();
 
             StreamReader reader = new StreamReader("../../../../Clubs.txt");
             string line = reader.ReadLine();
 
-            while(line != null)
+            while (line != null)
             {
                 string[] clubArray = line.Split('|');
                 Club club = new Club(clubArray[0], clubArray[1]);
                 ClubList.Add(club);
                 line = reader.ReadLine();
             }
+            #endregion
 
-
-
-
+            #region single member list import
             List<Member> MemberListSingle = new List<Member>();
 
             StreamReader readerMemberSingle = new StreamReader("../../../../SingleMembers.txt");
@@ -41,7 +43,8 @@ namespace Midterm_Fitness_Center
 
             }
             readerMemberSingle.Close();
-
+            #endregion
+            #region multi member list import
             List<Member> MemberListMulti = new List<Member>();
 
             StreamReader readerMemberMulti = new StreamReader("../../../../MultiMembers.txt");
@@ -50,20 +53,35 @@ namespace Midterm_Fitness_Center
             while (lineMemberMulti != null)
             {
                 string[] memberArrayMulti = lineMemberMulti.Split('|');
-                Member newMemberMulti = new Multi_Club(int.Parse(memberArrayMulti[0]), memberArrayMulti[1], memberArrayMulti[2], 
+                Member newMemberMulti = new Multi_Club(int.Parse(memberArrayMulti[0]), memberArrayMulti[1], memberArrayMulti[2],
                     double.Parse(memberArrayMulti[3]), int.Parse(memberArrayMulti[4]));
                 MemberListMulti.Add(newMemberMulti);
                 lineMemberMulti = reader.ReadLine();
             }
             readerMemberMulti.Close();
+            #endregion
 
-            int input = SelectFromLoginMenu(ClubList, MemberListSingle, MemberListMulti);
+
+            bool userContinue = true;
+            while (userContinue)
+            {
+
+                int input = SelectFromLoginMenu(ClubList, MemberListSingle, MemberListMulti);
+                if(input == 6)
+                {
+                    break;
+                }
+
+                userContinue = UserSelection("Would you like to perform another task? (y/n)", "y", "n");
+            }
+
+            Console.WriteLine("You have successfully logged out!");
         }
 
-       //method
+        //method
 
-       
-       
+
+
 
         //method to generate a random number to set ID number
         public static int GenerateID()
@@ -73,35 +91,58 @@ namespace Midterm_Fitness_Center
             return id;
         }
 
+
+        //Metod to generate random ID of 4 digits without duplicating from the existing list// We can change the parametere here
+        public static int GenerateID(List<int> list)
+        {
+            int id;
+            do
+            {
+
+                Random random = new Random();
+                id = random.Next(1111, 9999);
+
+            } while (list.Contains(id));
+
+            return id;
+        }
+
+
+
+
         public static string DisplayLoginMenuAndGetSelection()
         {
-            
+
             return GetUserInput($"Please select from the following options: \n1. Check-in a member \n2. Register a new member " +
                 $"\n3. Cancel a membership \n4. Display member information \n5. Generate a bill \n6. Logout");
         }
-        public static int SelectFromLoginMenu( List<Club> clubList, List<Member> membersSingle, List<Member> membersMulti)
+        public static int SelectFromLoginMenu(List<Club> clubList, List<Member> membersSingle, List<Member> membersMulti)
         {
             try
             {
                 int select = int.Parse(DisplayLoginMenuAndGetSelection());
 
-                if(select == 1)
+                if (select == 1)
                 {
 
                     //send to checkIn method
                     //call to dispMember and returns a specific member
-                    //if(Member.HomeClub != "")
-                    //{
-                    //    //send to singleClub.CheckIN
-                    //}
-                    //else
-                    //{
-                    //    //send to multiClub.checkIn
-                    //}
-                    //OR
+                    Member currentMember = DisplayMember.FindMember(membersSingle, membersMulti);
+
+                    if (currentMember.HomeClub != "")
+                    {
+                        //send to singleClub.CheckIN
+                   //    SingleClubClass.CheckIn(currentMember.HomeClub, currentMember); //CheckIn will not accept a club as a string or from
+                    }//a list of clubs. Changed parameters of Member CheckIn method to accept a string 
+                    else
+                    {
+                        //send to multiClub.checkIn
+                 //       Multi_Club.CheckIn(currentMember.HomeClub, currentMember);//same here will only accept a datatype Club
+                    }
+                 //   OR
                     //try
                     //{
-                    //    int pointCheck = Member.Points;
+                    //    int pointCheck = currentMember.Points; unable to use points because it's not part of Parent class 
                     //    //send to multi checkin
 
                     //}
@@ -117,8 +158,8 @@ namespace Midterm_Fitness_Center
                 {
                     //send to Add a member
                     //call to SingleOrMultiSelection
-                    
-                    if(SingleOrMultiSelection() == "single")
+
+                    if (SingleOrMultiSelection() == "single")
                     {
                         Member newSingle = new SingleClubClass();
                         newSingle.AddMember(clubList, membersSingle);
@@ -131,40 +172,28 @@ namespace Midterm_Fitness_Center
                         membersMulti.Add(newMulti);
                     }
 
-
-                    //Console.WriteLine("Would you like to add another new member? [y/n]");
-                    //keepAdding = char.Parse(Console.ReadLine().ToLower());
-
-                    //while (keepAdding != 'y' && keepAdding != 'n')
-                    //{                                                                                 //calling it main menu?
-                    //    Console.WriteLine("Invalid entry. Please enter [y] to add another new member. Enter [n] to return to Main Menu");
-                    //    keepAdding = char.Parse(Console.ReadLine().ToLower());
-                    //}
-
                 }
                 else if (select == 3)
                 {
                     //send to remove a member
+                    RemoveMember.RmvMember(membersSingle, membersMulti);
+
                 }
-                else if (select  == 4)
+                else if (select == 4)
                 {
                     //send to Display member info *DispMember(memberList)
+                   DisplayMember.DispMember(membersSingle, membersMulti);
                 }
                 else if (select == 5)
                 {
                     //send to generate a bill
 
                 }
-                else if (select == 6)
-                {
-                    
-                }
-
-                return select;//need to check to see if we need this index 
+                return select;//will return the int the user selects. This is important if they select 6 then it logs them out
             }
             catch
             {
-                return SelectFromLoginMenu( clubList, membersSingle, membersMulti);
+                return SelectFromLoginMenu(clubList, membersSingle, membersMulti);
             }
 
         }
@@ -172,8 +201,8 @@ namespace Midterm_Fitness_Center
         public int AddPoints()
         {
             bool select = UserSelection("Please select one to add: \n1. Check-In points \t2. Referral points", "1", "2");
-            
-            if(select == true)
+
+            if (select == true)
             {
                 return 5;
             }
@@ -182,80 +211,7 @@ namespace Midterm_Fitness_Center
                 return 10;
             }
         }
-
-        public static Member DispMember(List<Member> memberList)
-        {
-            int userIndex = SearchMember(memberList);
-            if (userIndex != -1)  // if name or ID was found, display user's info
-            {
-                memberList[userIndex].DisplayInfo();
-                return memberList[userIndex];
-            }
-            return memberList[userIndex];//work on validating this
-        }
-
-        //public static void DispMember(List<Member> memberList)
-        //{
-        //    int userIndex = SearchMember(memberList);
-        //    if (userIndex != -1)  // if name or ID was found, display user's info
-        //    {
-        //        memberList[userIndex].DisplayInfo();    
-        //    }
-        //}
-
-        public static int SearchMember(List<Member> memberList)
-        {
-            int foundIt = -1;
-
-            Console.WriteLine("Would you like to look for a member by ID number or name?");
-            Console.WriteLine($"1)\tID number");
-            Console.WriteLine($"2)\tName?");
-            int userSelection = int.Parse(Console.ReadLine());  // <---- validation needed here!!!
-            if (userSelection == 1)     // ID search selected by user;
-            {
-                Console.WriteLine("Please enter the ID number: ");
-                int idSearch = int.Parse(Console.ReadLine()); // <---- validation needed here!!!
-                for (int i = 0; i < memberList.Count; i++)  // Search systen for ID entered
-                {
-                    if (idSearch == memberList[i].Id)
-                    {
-                        foundIt = i;    // Store index for later
-                        break;
-                    }
-                }
-                if (foundIt == -1)  // ID not found
-                {
-                    Console.WriteLine($"{userSelection} could not be found in the system.");
-                }
-            }
-            else   // name search selected by user;
-            {
-                Console.WriteLine("Please enter member's first name");
-                string fName = Console.ReadLine();
-                Console.WriteLine("Please enter member's last name");
-                string lName = Console.ReadLine();
-
-                for (int i = 0; i < memberList.Count; i++)  // Search systen for name entered
-                {
-                    if (lName.Trim().ToLower() == memberList[i].LastName.Trim().ToLower())
-                    {
-                        if (fName.Trim().ToLower() == memberList[i].FirstName.Trim().ToLower())
-                        {
-                            foundIt = i;    // Store index for later
-                            break;
-                        }
-                    }
-                }
-                if (foundIt == -1)  // name not found
-                {
-                    Console.WriteLine($"{userSelection} could not be found in the system.");
-                }
-            }
-            return foundIt;
-        }
     }
-
-
 }
 
     

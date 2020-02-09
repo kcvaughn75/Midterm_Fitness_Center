@@ -48,3 +48,4 @@
 5461|Ross|Roberie|GC Fit Detroit|81.67
 9869|Vincent|Vancamp|GC Fit Troy|42.28
 7331|Erick|Edge|GC Fit Canton|93.50
+0002|test2|Test|GC Fit Detroit|19.99

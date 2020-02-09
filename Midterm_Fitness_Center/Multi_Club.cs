@@ -21,11 +21,8 @@ namespace Midterm_Fitness_Center
         }
 
 
-        public override void CheckIn(Club club, List<Member> members)
-        {
-            Member toCheckIn = Program.DispMember(members);
-
-           
+        public override void CheckIn(Club club, Member toCheckIn)
+        {           
             if (club.Name == toCheckIn.HomeClub)
             {
                 toCheckIn.CheckedInto = club.Name;
@@ -50,6 +47,11 @@ namespace Midterm_Fitness_Center
             Points = 50;
             Fees = 29.99;
             //add the member to the list
+        }
+        //
+        public static int GeneratePointsMulti(Multi_Club currentMember)
+        {
+            return currentMember.Points;
         }
     }
 }

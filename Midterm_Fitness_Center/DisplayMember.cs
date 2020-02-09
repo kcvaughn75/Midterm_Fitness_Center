@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Midterm_Fitness_Center.Methods;
 
 namespace Midterm_Fitness_Center
 {
     class DisplayMember
     {
-        public static Member DispMember(List<Member> scMemberList, List<Member> mcMemberList)
+        public static void DispMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
-            int userIndex = FindMember(scMemberList, mcMemberList);
-            if (userIndex != -1)  // if name or ID was found, display user's info
+            // Uses FindMember. Displays user info if Member is found.  If passed a null because
+            // a member was NOT found, inform user.
+            try
             {
-                memberList[userIndex].DisplayInfo();
-                return memberList[userIndex];
+                FindMember(scMemberList, mcMemberList).DisplayInfo();
             }
-            return memberList[userIndex];//work on validating this
+            catch
+            {
+                Console.WriteLine("Member does not exist. Cannot display info.");
+            }
         }
 
-        public static int FindMember(List<Member> scMemberList, List<Member> mcMemberList)
+        public static Member FindMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
-            int foundIt = -1;
-
+            // Interactive search for any kind of member.  Calls either IDsearch or NameSearch.
+            // Returns a Member if found or a null if not.
             Console.WriteLine("Would you like to look for a member by ID number or name?");
             Console.WriteLine($"1)\tID number");
             Console.WriteLine($"2)\tName?");
-            int userSelection = int.Parse(Console.ReadLine());  // <---- validation needed here!!!
+            int userSelection = UserChoice("Please enter 1 or 2","Invalid input.",2);
             if (userSelection == 1)     // ID search selected by user;
             {
-                Console.WriteLine("Please enter the ID number: ");
-                int idSearch = int.Parse(Console.ReadLine()); // <---- validation needed here!!!
-                int idSearchidx = IDSearch(idSearch, scMemberList, mcMemberList);
-                if (idSearchidx == -1)
+                int idSearch = UserChoice("Please emter the ID number:", "Please enter a valid whole number", int.MaxValue);
+                try
                 {
-                    FindMember(scMemberList, mcMemberList);
+                    return IDSearch(idSearch, scMemberList, mcMemberList);
+                }
+                catch
+                {
+                    Console.WriteLine($"{idSearch} was not found in the system.\n");
                 }
             }
             else   // name search selected by user;
@@ -41,28 +47,22 @@ namespace Midterm_Fitness_Center
                 string fName = Console.ReadLine();
                 Console.WriteLine("Please enter member's last name");
                 string lName = Console.ReadLine();
-
-                for (int i = 0; i < memberList.Count; i++)  // Search systen for name entered
+                try
                 {
-                    if (lName.Trim().ToLower() == memberList[i].LastName.Trim().ToLower())
-                    {
-                        if (fName.Trim().ToLower() == memberList[i].FirstName.Trim().ToLower())
-                        {
-                            foundIt = i;    // Store index for later
-                            break;
-                        }
-                    }
+                    return NameSearch(fName, lName, scMemberList, mcMemberList);
                 }
-                if (foundIt == -1)  // name not found
+                catch
                 {
                     Console.WriteLine($"{userSelection} could not be found in the system.");
                 }
             }
-            return foundIt;
+            return null;
         }
 
-        public static int IDSearch(int idSearch, List<Member> scMemberList, List<Member> mcMemberList)
+        public static Member IDSearch(int idSearch, List<Member> scMemberList, List<Member> mcMemberList)
         {
+            // non-interactive search for any kind of member given the ID of the member.  Returns the member
+            // if found.  Returns a null if not.
             int foundIt = -1;
 
             for (int i = 0; i < scMemberList.Count; i++)  // Search systen for ID entered
@@ -70,7 +70,7 @@ namespace Midterm_Fitness_Center
                 if (idSearch == scMemberList[i].Id)
                 {
                     foundIt = i;    // Store index for later
-                    return foundIt;
+                    return scMemberList[foundIt];
                 }
             }
             if (foundIt == -1)  // ID not found
@@ -80,17 +80,45 @@ namespace Midterm_Fitness_Center
                     if (idSearch == mcMemberList[i].Id)
                     {
                         foundIt = i;    // Store index for later
-                        return foundIt;
+                        return scMemberList[foundIt];
                     }
                 }
             }
-            return foundIt;
-
+            return null;    // ID not found on either single or multi club lists
         }
 
-        public static int NameSearch(int nameSearch, List<Member> scMemberList, List<Member> mcMemberList)
+        public static Member NameSearch(string fnameSearch, string lnameSearch, List<Member> scMemberList, List<Member> mcMemberList)
         {
-            return 0;
+            // non-interactive search for any kind of member given the name of the member.  Returns the member
+            // if found.  Returns a null if not.
+            int foundIt = -1;
+
+            for (int i = 0; i < scMemberList.Count; i++)  // Search systen for name entered
+            {
+                if (lnameSearch.Trim().ToLower() == scMemberList[i].LastName.Trim().ToLower())
+                {
+                    if (fnameSearch.Trim().ToLower() == scMemberList[i].FirstName.Trim().ToLower())
+                    {
+                        foundIt = i;    // Store index for later
+                        return scMemberList[i];
+                    }
+                }
+            }
+            if (foundIt == -1)  // name not found
+            {
+                for (int i = 0; i < scMemberList.Count; i++)  // Search systen for name entered
+                {
+                    if (lnameSearch.Trim().ToLower() == mcMemberList[i].LastName.Trim().ToLower())
+                    {
+                        if (fnameSearch.Trim().ToLower() == mcMemberList[i].FirstName.Trim().ToLower())
+                        {
+                            foundIt = i;    // Store index for later
+                            return mcMemberList[i];
+                        }
+                    }
+                }
+            }
+            return null;    // Name not found on either list
         }
     }
 }

@@ -38,5 +38,7 @@ namespace Midterm_Fitness_Center
         {
             Console.WriteLine($"\n\nMember ID: {Id}\t\tName: {LastName}, {FirstName}\tFees: {Fees}");
         }
+
+       
     }
 }

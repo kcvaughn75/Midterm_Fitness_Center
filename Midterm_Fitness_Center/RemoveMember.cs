@@ -53,9 +53,9 @@ namespace Midterm_Fitness_Center
                 else
                 {
                     // Confirms, deletes member and updates the Single Member list file.
-                    if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[idFound].FirstName} {mcMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
+                    if (UserSelection($"\n\nAre you sure you want to remove {scMemberList[idFound].FirstName} {scMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
                     {
-                        mcMemberList.Remove(scMemberList[idFound]);
+                        scMemberList.Remove(scMemberList[idFound]);
                         StreamWriter writer = new StreamWriter("../../../SingleMembers.txt");
                         foreach (Member person in scMemberList)
                         {

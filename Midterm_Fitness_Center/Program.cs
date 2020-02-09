@@ -58,6 +58,8 @@ namespace Midterm_Fitness_Center
             readerMemberMulti.Close();
 
             int input = SelectFromLoginMenu(ClubList, MemberListSingle, MemberListMulti);
+
+            
         }
 
        //method
@@ -253,6 +255,8 @@ namespace Midterm_Fitness_Center
             }
             return foundIt;
         }
+
+        
     }
 
 

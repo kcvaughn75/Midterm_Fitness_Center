@@ -9,6 +9,9 @@ namespace Midterm_Fitness_Center
     {
         static void Main(string[] args)
         {
+            //Calling the login method from login class
+            Login.LoginStaff(Login.StaffLogin);
+
             #region club list import
             List<Club> ClubList = new List<Club>();
 
@@ -87,6 +90,25 @@ namespace Midterm_Fitness_Center
             int id = random.Next();
             return id;
         }
+
+
+        //Metod to generate random ID of 4 digits without duplicating from the existing list// We can change the parametere here
+        public static int GenerateID(List<int> list)
+        {
+            int id;
+            do
+            {
+
+                Random random = new Random();
+                id = random.Next(1111, 9999);
+
+            } while (list.Contains(id));
+
+            return id;
+        }
+
+
+
 
         public static string DisplayLoginMenuAndGetSelection()
         {

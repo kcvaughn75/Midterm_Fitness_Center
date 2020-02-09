@@ -48,5 +48,10 @@ namespace Midterm_Fitness_Center
             Fees = 29.99;
             //add the member to the list
         }
+        //
+        public static int GeneratePointsMulti(Multi_Club currentMember)
+        {
+            return currentMember.Points;
+        }
     }
 }

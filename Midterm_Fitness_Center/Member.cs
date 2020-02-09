@@ -18,13 +18,13 @@ namespace Midterm_Fitness_Center
         public string HomeClub { get; set; }
 
         //abstract method will be defined by child classes
-        public abstract void CheckIn(Club club, List<Member> members);
+        public abstract void CheckIn(Club club, Member member);
 
         //Removed add member parameters to allow method to loop
         virtual public void AddMember(List<Club> clubList, List<Member> members)
         {
-            char keepAdding = 'y';
-            while (keepAdding == 'y')
+            //char keepAdding = 'y';
+            //while (keepAdding == 'y')
             {   //Use property "lastName" or declare new string?
                 FirstName = GetUserInput("Enter new member's First Name: ");
                 LastName = GetUserInput("Enter new member's Last Name: ");
@@ -36,7 +36,7 @@ namespace Midterm_Fitness_Center
 
         public virtual void DisplayInfo()
         {
-            Console.WriteLine($"\n\nMember ID: {Id}\t\tName: {LastName}, {FirstName}\tFees: {Fees}");
+            Console.WriteLine($"\n\nMember ID: {Id} \nName: {LastName}, {FirstName}\nFees: {Fees}");
         }
     }
 }

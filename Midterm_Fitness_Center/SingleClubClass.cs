@@ -25,10 +25,8 @@ namespace Midterm_Fitness_Center
         //Wasn't sure if FindMemberByIdOrName method will work in this CheckIn method here?
         //will have to ccreate a bool variable and call below method here
 
-        public override void CheckIn(Club club, List<Member> members)
+        public override void CheckIn(Club club, Member toCheckIn)
         {
-
-            Member toCheckIn = Program.DispMember(members);
             
            // bool temp = FindMemberByIdOrName(//ListName goes here, user Id, useName);
             if (club.Name == toCheckIn.HomeClub)

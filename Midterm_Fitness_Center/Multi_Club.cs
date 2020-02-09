@@ -21,11 +21,8 @@ namespace Midterm_Fitness_Center
         }
 
 
-        public override void CheckIn(Club club, List<Member> members)
-        {
-            Member toCheckIn = Program.DispMember(members);
-
-           
+        public override void CheckIn(Club club, Member toCheckIn)
+        {           
             if (club.Name == toCheckIn.HomeClub)
             {
                 toCheckIn.CheckedInto = club.Name;

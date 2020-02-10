@@ -8,16 +8,18 @@ namespace Midterm_Fitness_Center
     class Multi_Club : Member
     {
         public int Points { get; set; }
+        public double SwagFees { get; set; }
 
         public Multi_Club() { }
 
-        public Multi_Club(int id,string firstName, string lastName, double fees, int points)
+        public Multi_Club(int id,string firstName, string lastName, double monthlyFees, int points, double swagFees)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Fees = fees; 
+            MonthlyFees = monthlyFees; 
             Points = points;
+            SwagFees = swagFees;
         }
 
 
@@ -45,13 +47,20 @@ namespace Midterm_Fitness_Center
             base.AddMember(clubList, members);
             Console.WriteLine($"{FirstName} can access all the clubs!");
             Points = 50;
-            Fees = 29.99;
+            MonthlyFees = 29.99;
             //add the member to the list
         }
         //
         public static int GeneratePointsMulti(Multi_Club currentMember)
         {
             return currentMember.Points;
+        }
+
+        public static void GenerateMultiClubFeeBreakdown(Multi_Club member)
+        {
+            double feeSum = member.MonthlyFees + member.SwagFees;
+            Console.WriteLine($"{member.FirstName}'s Monthly Fees Total: {member.MonthlyFees}  Other Gym Fees Total: {member.SwagFees}  Grand Total: {feeSum}.");
+
         }
     }
 }

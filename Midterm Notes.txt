@@ -1,0 +1,16 @@
+changed Fees to MonthlyFees in member, single, multi.
+
+added OtherGymFee field and property to Member and SingleClubClass....check line 47...used suggestion get; internal set;...eventually took out internal
+
+added GenerateSingleClubFeeBreakdown() in SingleClubClass
+
+added SwagFees field and props to Member, SingleClub, and MultiClub
+
+added GenerateMultiClubFeeBreakdown() in MultiCLub
+
+
+
+
+
+
+

@@ -9,16 +9,19 @@ namespace Midterm_Fitness_Center
     {    
         //default constructor
         public SingleClubClass() { }
-        
+
+        public int OtherGymFees { get; set; }
 
         //overloaded constructor
-        public SingleClubClass(int id, string firstName, string lastName, string homeClub, double fees)
+        public SingleClubClass(int id, string firstName, string lastName, string homeClub, double monthlyFees, int otherGymFees, double swagFees)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             HomeClub = homeClub;
-            Fees = fees;
+            MonthlyFees = monthlyFees;
+            OtherGymFees = otherGymFees;
+            SwagFees = swagFees;
             
         }
 
@@ -42,8 +45,8 @@ namespace Midterm_Fitness_Center
                 {
                     toCheckIn.CheckedInto = club.Name;
                     Console.WriteLine($"Single club Member{toCheckIn.FirstName} is checked in!");
-                    toCheckIn.Fees += 5;
-                    Console.WriteLine($"$5 has been added to the {toCheckIn.FirstName}'s monthly fees. Their total for this month is ${toCheckIn.Fees}");
+                    toCheckIn.OtherGymFees += 5;
+                    Console.WriteLine($"$5 has been added to the {toCheckIn.FirstName}'s monthly fees. Their total for this month is ${toCheckIn.MonthlyFees}");
                 }
             }
         }
@@ -59,7 +62,14 @@ namespace Midterm_Fitness_Center
             base.AddMember(clubList, members);
             
             int selectHomeClub = UserChoice(GetUserInput("Enter the number of the club to set as the home club?"), $"Please enter a number between 1-{clubList.Count}", clubList.Count);
-            Fees = 19.99;
+            MonthlyFees = 19.99;
+        }
+
+        public static void GenerateSingleClubFeeBreakdown(SingleClubClass member)
+        {
+            double feeSum = member.MonthlyFees + member.OtherGymFees + member.SwagFees;
+            Console.WriteLine($"{member.FirstName}'s Monthly Fees Total: {member.MonthlyFees} | Other Gym Fees Total: {member.OtherGymFees} | Swag Fees Total: {member.SwagFees} Grand Total: {feeSum}.");
+            
         }
 
     }

@@ -39,7 +39,7 @@ namespace Midterm_Fitness_Center
                 Member newMemberSingle = new SingleClubClass(int.Parse(memberArraySingle[0]), memberArraySingle[1], memberArraySingle[2],
                     memberArraySingle[3], double.Parse(memberArraySingle[4]));
                 MemberListSingle.Add(newMemberSingle);
-                lineMemberSingle = reader.ReadLine();
+                lineMemberSingle = readerMemberSingle.ReadLine();
 
             }
             readerMemberSingle.Close();
@@ -56,7 +56,7 @@ namespace Midterm_Fitness_Center
                 Member newMemberMulti = new Multi_Club(int.Parse(memberArrayMulti[0]), memberArrayMulti[1], memberArrayMulti[2],
                     double.Parse(memberArrayMulti[3]), int.Parse(memberArrayMulti[4]));
                 MemberListMulti.Add(newMemberMulti);
-                lineMemberMulti = reader.ReadLine();
+                lineMemberMulti = readerMemberMulti.ReadLine();
             }
             readerMemberMulti.Close();
             #endregion

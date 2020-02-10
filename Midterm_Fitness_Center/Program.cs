@@ -10,9 +10,10 @@ namespace Midterm_Fitness_Center
         static void Main(string[] args)
         {
             //Calling the login method from login class
-            // Login.LoginStaff(Login.StaffLogin);
+             Login.LoginStaff(Login.StaffLogin);
 
-            #region club list import
+            //reading in a list of clubs from a text file and adding them to a list of clubs
+            #region club list import 
             List<Club> ClubList = new List<Club>();
 
             StreamReader reader = new StreamReader("../../../../Clubs.txt");
@@ -25,8 +26,9 @@ namespace Midterm_Fitness_Center
                 ClubList.Add(club);
                 line = reader.ReadLine();
             }
-            #endregion
+            #endregion 
 
+            //reading in a list of single members from a text file and adding them to a list of Members
             #region single member list import
             List<Member> MemberListSingle = new List<Member>();
 
@@ -43,6 +45,8 @@ namespace Midterm_Fitness_Center
             }
             readerMemberSingle.Close();
             #endregion
+
+            //reading in a list of Multi members from a text file and adding them to a list of Members
             #region multi member list import
             List<Member> MemberListMulti = new List<Member>();
 
@@ -60,7 +64,7 @@ namespace Midterm_Fitness_Center
             readerMemberMulti.Close();
             #endregion
 
-
+            //loop condition to ask staff user if they would like to perform another task
             bool userContinue = true;
             while (userContinue)
             {
@@ -71,129 +75,78 @@ namespace Midterm_Fitness_Center
                     break;
                 }
 
-                userContinue = UserSelection("Would you like to perform another task? (y/n)", "y", "n");
+                userContinue = UserSelection("\nWould you like to perform another task? (y/n)", "y", "n");
             }
 
-            Console.WriteLine("You have successfully logged out!");
+            Console.WriteLine("\nYou have successfully logged out!");
         }
 
-        //method
+        //methods
 
 
-
-
-        //method to generate a random number to set ID number
-        public static int GenerateID()
-        {
-            Random random = new Random();
-            int id = random.Next();
-            return id;
-        }
-
-
-        //Metod to generate random ID of 4 digits without duplicating from the existing list// We can change the parametere here
-        public static int GenerateID(List<int> list)
-        {
-            int id;
-            do
-            {
-
-                Random random = new Random();
-                id = random.Next(1111, 9999);
-
-            } while (list.Contains(id));
-
-            return id;
-        }
-
-
-
-
-        public static string DisplayLoginMenuAndGetSelection()
-        {
-
-            return GetUserInput($"Please select from the following options: \n1. Check-in a member \n2. Register a new member " +
-                $"\n3. Cancel a membership \n4. Display member information \n5. Generate a bill \n6. Logout");
-        }
         public static int SelectFromLoginMenu(List<Club> clubList, List<Member> membersSingle, List<Member> membersMulti)
         {
             try
             {
-                int select = int.Parse(DisplayLoginMenuAndGetSelection());
+                int select = UserChoice($"\nPlease select from the following options: \n1. Check-in a member \n2. Register a new member " +
+                $"\n3. Cancel a membership \n4. Display member information \n5. Generate a bill \n6. Logout", "Invalid input! Please select between 1-6", 6);
 
                 if (select == 1)
                 {
-
-                    //send to checkIn method
-                    //call to dispMember and returns a specific member
+                    //send to checkIn method depending if member is a single or multi
                     Member currentMember = DisplayMember.FindMember(membersSingle, membersMulti);
 
                     if (currentMember.HomeClub != "")
                     {
                         //send to singleClub.CheckIN
-                    // SingleClubClass.CheckIn(currentMember.HomeClub, currentMember); //CheckIn will not accept a club as a string or from
-                    }//a list of clubs. Changed parameters of Member CheckIn method to accept a string 
+                        currentMember.CheckIn(clubList[0], currentMember);
+                    }
                     else
                     {
                         //send to multiClub.checkIn
-                 //       Multi_Club.CheckIn(currentMember.HomeClub, currentMember);//same here will only accept a datatype Club
-                    }
-                 //   OR
-                    //try
-                    //{
-                    //    int pointCheck = currentMember.Points; unable to use points because it's not part of Parent class 
-                    //    //send to multi checkin
-
-                    //}
-                    //catch
-                    //{
-                    //    //send to single
-                    //}
-
-
-
+                        currentMember.CheckIn(clubList[0], currentMember);//same here will only accept a datatype Club
+                    }                
                 }
                 else if (select == 2)
                 {
-                    //send to Add a member
-                    //call to SingleOrMultiSelection
-
+                    //send to Add a member abstract method in each child class
+                    Console.Clear();
+                    Club.DisplayClubs(clubList);
                     if (SingleOrMultiSelection() == "single")
                     {
                         Member newSingle = new SingleClubClass();
                         newSingle.AddMember(clubList, membersSingle);
                         membersSingle.Add(newSingle);
-                        StreamWriter writer = new StreamWriter("../../../SingleMembers.txt");
-                        foreach (Member person in membersSingle)
+                        //write to file with the added member
+                        StreamWriter writer = new StreamWriter("../../../../SingleMembers.txt");
+                        foreach (SingleClubClass person in membersSingle)
                         {
-                            writer.WriteLine(person);
+                            writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.HomeClub}|{person.Fees}");
                         }
                         writer.Close();
-
                     }
                     else
                     {
                         Member newMulti = new Multi_Club();
                         newMulti.AddMember(clubList, membersMulti);
                         membersMulti.Add(newMulti);
-                        StreamWriter writer = new StreamWriter("../../../MultiMembers.txt");
-                        foreach (Member person in membersMulti)
+                        //write to file with the added member
+                        StreamWriter writer = new StreamWriter("../../../../MultiMembers.txt");
+                        foreach (Multi_Club person in membersMulti)
                         {
-                            writer.WriteLine(person);
+                            writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.Fees}|{person.Points}");
                         }
                         writer.Close();
-
                     }
-
                 }
                 else if (select == 3)
                 {
-                    //send to remove a member
+                    //send to remove a member both lists
                     RemoveMember.RmvMember(membersSingle, membersMulti);
                 }
                 else if (select == 4)
                 {
-                    //send to Display member info *DispMember(memberList)
+                    //send to Display member info 
                    DisplayMember.DispMember(membersSingle, membersMulti);
                 }
                 else if (select == 5)

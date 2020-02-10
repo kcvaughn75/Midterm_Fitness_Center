@@ -9,7 +9,7 @@ namespace Midterm_Fitness_Center
     {
         public static void DispMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
-            Console.Clear();
+            
             // Uses FindMember. Displays user info if Member is found.  If passed a null because
             // a member was NOT found, inform user.
             try
@@ -26,13 +26,11 @@ namespace Midterm_Fitness_Center
         {
             // Interactive search for any kind of member.  Calls either IDsearch or NameSearch.
             // Returns a Member if found or a null if not.
-            Console.WriteLine("Would you like to look for a member by ID number or name?");
-            Console.WriteLine($"1)\tID number");
-            Console.WriteLine($"2)\tName");
-            int userSelection = UserChoice("Please enter 1 or 2","Invalid input.",2);
+            Console.Clear();
+            int userSelection = UserChoice("\nWould you like to look for a member by ID number or name? \n1. ID number \n2. Name", "Invalid input! Please enter a 1 or 2.", 2);
             if (userSelection == 1)     // ID search selected by user;
             {
-                int idSearch = UserChoice("Please enter the ID number:", "Please enter a valid whole number", int.MaxValue);
+                int idSearch = UserChoice("\nPlease enter the ID number:", "Please enter a valid whole number", int.MaxValue);
                 try
                 {
                     return IDSearch(idSearch, scMemberList, mcMemberList);

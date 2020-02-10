@@ -93,19 +93,38 @@ namespace Midterm_Fitness_Center
 
                 if (select == 1)
                 {
-                    //send to checkIn method depending if member is a single or multi
                     Member currentMember = DisplayMember.FindMember(membersSingle, membersMulti);
-
-                    if (currentMember.HomeClub != "")
+                    if (currentMember == null)
                     {
-                        //send to singleClub.CheckIN
-                        currentMember.CheckIn(clubList[0], currentMember);
+                        Console.WriteLine("Member does not exist. Cannot display info.");
                     }
                     else
                     {
-                        //send to multiClub.checkIn
-                        currentMember.CheckIn(clubList[0], currentMember);//same here will only accept a datatype Club
-                    }                
+                        if (currentMember.HomeClub != "")
+                        {
+                            //send to singleClub.CheckIN
+                            currentMember.CheckIn(clubList[0], currentMember);
+                            StreamWriter writer = new StreamWriter("../../../../SingleMembers.txt");
+                            foreach (SingleClubClass person in membersSingle)
+                            {
+                                writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.HomeClub}|{person.Fees}");
+                            }
+                            writer.Close();
+
+                        }
+                        else
+                        {
+                            //send to multiClub.checkIn
+                            currentMember.CheckIn(clubList[0], currentMember);//same here will only accept a datatype Club
+                            StreamWriter writer = new StreamWriter("../../../../MultiMembers.txt");
+                            foreach (Multi_Club person in membersMulti)
+                            {
+                                writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.Fees}|{person.Points}");
+                            }
+                            writer.Close();
+
+                        }
+                    }
                 }
                 else if (select == 2)
                 {
@@ -152,7 +171,7 @@ namespace Midterm_Fitness_Center
                 else if (select == 5)
                 {
                     //send to generate a bill
-
+                    Bill.GenerateBill(membersSingle, membersMulti);
                 }
                 return select;//will return the int the user selects. This is important if they select 6 then it logs them out
             }

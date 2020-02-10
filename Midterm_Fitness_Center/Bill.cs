@@ -10,33 +10,33 @@ namespace Midterm_Fitness_Center
         {
             Member currentMember = DisplayMember.FindMember(scMemberList, mcMemberList);
 
-            if (currentMember.MonthlyFees == 20)//single club mem
+            if (currentMember.Fees == 20)//single club mem
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $0 \nTotal Due: $20.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees}.00 \nAdditional Fees: $0 \nTotal Due: $20.00");
             }
-            else if (currentMember.MonthlyFees == 25)//single club mem w/ diff club checkin fee
+            else if (currentMember.Fees == 25)//single club mem w/ diff club checkin fee
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $5 \nTotal Due: $25.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees - 5.00}.00 \nCheck in to non-home club: $5 \nTotal Due: $25.00");
             }
-            else if (currentMember.MonthlyFees == 30)//Multiclub mem
+            else if (currentMember.Fees == 30)//Multiclub mem
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $0 \nTotal Due: $30.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees}.00 \nAdditional Fees: $0 \nTotal Due: $30.00");
             }
-            else if (currentMember.MonthlyFees == 70)//single club mem w/ massage fee
+            else if (currentMember.Fees == 70)//single club mem w/ massage fee
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $50 \nTotal Due: $70.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees - 50.00}.00 \nMassage Fee: $50 \nTotal Due: $70.00");
             }
-            else if (currentMember.MonthlyFees == 75)//single club mem w/ diff club checkin fee and massage fee
+            else if (currentMember.Fees == 75)//single club mem w/ diff club checkin fee and massage fee
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $55 \nTotal Due: $75.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees - 55.00}.00 \nMassage Fee: $50\nCheck in to non-home club: $5 \nTotal Due: $75.00");
             }
-            else if (currentMember.MonthlyFees == 80)//multi club mem w/ massage fee
+            else if (currentMember.Fees == 80)//multi club mem w/ massage fee
             {
-                Console.WriteLine($"{currentMember}'s Balance: \nMonthly Fee: ${currentMember.MonthlyFees}.00 \nAdditional Fees: $50 \nTotal due: $80.00");
+                Console.WriteLine($"{currentMember.FirstName}'s Balance: \nMonthly Fee: ${currentMember.Fees - 50.00}.00 \nMassage Fee: $50 \nTotal due: $80.00");
             }
             else
             {
-                Console.WriteLine($"{currentMember}'s Balance: ${currentMember.MonthlyFees}.00");
+                Console.WriteLine($"{currentMember}'s Balance: ${currentMember.Fees}.00");
             }
 
         }

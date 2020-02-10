@@ -9,6 +9,7 @@ namespace Midterm_Fitness_Center
     {
         public static void DispMember(List<Member> scMemberList, List<Member> mcMemberList)
         {
+            Console.Clear();
             // Uses FindMember. Displays user info if Member is found.  If passed a null because
             // a member was NOT found, inform user.
             try

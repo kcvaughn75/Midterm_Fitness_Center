@@ -73,7 +73,7 @@ namespace Midterm_Fitness_Center
         //returns sum of all fees accrued for specific member
         public static double GenerateFees(Member currentMember)
         {
-            return currentMember.MonthlyFees;
+            return currentMember.Fees;
         }
 
         

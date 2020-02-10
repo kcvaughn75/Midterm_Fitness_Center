@@ -11,26 +11,25 @@ namespace Midterm_Fitness_Center
         
         public Multi_Club() { }
 
-        public Multi_Club(int id,string firstName, string lastName, double monthlyFees, int points, double swagFees)
+        public Multi_Club(int id,string firstName, string lastName, double monthlyFees, int points)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            MonthlyFees = monthlyFees; 
+            Fees = monthlyFees; 
             Points = points;
-            SwagFees = swagFees;
+            //SwagFees = swagFees;
         }
 
 
         public override void CheckIn(Club club, Member toCheckIn)
         {           
-            if (club.Name == toCheckIn.HomeClub)
-            {
+          
                 toCheckIn.CheckedInto = club.Name;
                 Points += 5;
                 Console.WriteLine($"Multi club Member{toCheckIn.FirstName} is checked in!");
                 Console.WriteLine($"{toCheckIn.FirstName} has {Points} membership points!");
-            }
+            
             
         }
 
@@ -44,7 +43,7 @@ namespace Midterm_Fitness_Center
         public override void AddMember(List<Club> clubList, List<Member> members)
         {
             base.AddMember(clubList, members);
-            Console.WriteLine($"{FirstName} can access all the clubs!");
+            Console.WriteLine($"{FirstName} can access all of the above clubs!");
             Points = 50;
             Fees = 29.99;
 
@@ -59,13 +58,14 @@ namespace Midterm_Fitness_Center
 
                 for (int i = 0; i < members.Count; i++)
                 {
-                    if (members[i].Id != genId)
+                    if (genId == members[i].Id)
                     {
-                        duplicateFound = false;
+                        duplicateFound = true;
+                        break;
                     }
                     else
                     {
-                        duplicateFound = true;
+                        duplicateFound = false;
                     }
                 }
             }
@@ -79,11 +79,11 @@ namespace Midterm_Fitness_Center
             return currentMember.Points;
         }
 
-        public static void GenerateMultiClubFeeBreakdown(Multi_Club member)
-        {
-            double feeSum = member.MonthlyFees + member.SwagFees;
-            Console.WriteLine($"{member.FirstName}'s Monthly Fees Total: {member.MonthlyFees}  Other Gym Fees Total: {member.SwagFees}  Grand Total: {feeSum}.");
+        //public static void GenerateMultiClubFeeBreakdown(Multi_Club member)
+        //{
+        //    double feeSum = member.MonthlyFees + member.SwagFees;
+        //    Console.WriteLine($"{member.FirstName}'s Monthly Fees Total: {member.MonthlyFees}  Other Gym Fees Total: {member.SwagFees}  Grand Total: {feeSum}.");
 
-        }
+        //}
     }
 }

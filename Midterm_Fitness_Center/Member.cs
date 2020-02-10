@@ -13,11 +13,9 @@ namespace Midterm_Fitness_Center
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public double MonthlyFees { get; set; }
+        public double Fees { get; set; }
         public string CheckedInto { get; set; }
         public string HomeClub { get; set; }
-        public int OtherGymFees { get; set; }
-        public double SwagFees { get; set; }
 
         //abstract method will be defined by child classes
         public abstract void CheckIn(Club club, Member member);

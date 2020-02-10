@@ -10,7 +10,7 @@ namespace Midterm_Fitness_Center
         static void Main(string[] args)
         {
             //Calling the login method from login class
-            Login.LoginStaff(Login.StaffLogin);
+            // Login.LoginStaff(Login.StaffLogin);
 
             #region club list import
             List<Club> ClubList = new List<Club>();
@@ -39,8 +39,7 @@ namespace Midterm_Fitness_Center
                 Member newMemberSingle = new SingleClubClass(int.Parse(memberArraySingle[0]), memberArraySingle[1], memberArraySingle[2],
                     memberArraySingle[3], double.Parse(memberArraySingle[4]));
                 MemberListSingle.Add(newMemberSingle);
-                lineMemberSingle = reader.ReadLine();
-
+                lineMemberSingle = readerMemberSingle.ReadLine();
             }
             readerMemberSingle.Close();
             #endregion
@@ -56,7 +55,7 @@ namespace Midterm_Fitness_Center
                 Member newMemberMulti = new Multi_Club(int.Parse(memberArrayMulti[0]), memberArrayMulti[1], memberArrayMulti[2],
                     double.Parse(memberArrayMulti[3]), int.Parse(memberArrayMulti[4]));
                 MemberListMulti.Add(newMemberMulti);
-                lineMemberMulti = reader.ReadLine();
+                lineMemberMulti = readerMemberMulti.ReadLine();
             }
             readerMemberMulti.Close();
             #endregion
@@ -132,7 +131,7 @@ namespace Midterm_Fitness_Center
                     if (currentMember.HomeClub != "")
                     {
                         //send to singleClub.CheckIN
-                   //    SingleClubClass.CheckIn(currentMember.HomeClub, currentMember); //CheckIn will not accept a club as a string or from
+                    // SingleClubClass.CheckIn(currentMember.HomeClub, currentMember); //CheckIn will not accept a club as a string or from
                     }//a list of clubs. Changed parameters of Member CheckIn method to accept a string 
                     else
                     {
@@ -164,12 +163,26 @@ namespace Midterm_Fitness_Center
                         Member newSingle = new SingleClubClass();
                         newSingle.AddMember(clubList, membersSingle);
                         membersSingle.Add(newSingle);
+                        StreamWriter writer = new StreamWriter("../../../SingleMembers.txt");
+                        foreach (Member person in membersSingle)
+                        {
+                            writer.WriteLine(person);
+                        }
+                        writer.Close();
+
                     }
                     else
                     {
                         Member newMulti = new Multi_Club();
                         newMulti.AddMember(clubList, membersMulti);
                         membersMulti.Add(newMulti);
+                        StreamWriter writer = new StreamWriter("../../../MultiMembers.txt");
+                        foreach (Member person in membersMulti)
+                        {
+                            writer.WriteLine(person);
+                        }
+                        writer.Close();
+
                     }
 
                 }
@@ -177,7 +190,6 @@ namespace Midterm_Fitness_Center
                 {
                     //send to remove a member
                     RemoveMember.RmvMember(membersSingle, membersMulti);
-
                 }
                 else if (select == 4)
                 {

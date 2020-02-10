@@ -46,6 +46,30 @@ namespace Midterm_Fitness_Center
             Console.WriteLine($"{FirstName} can access all the clubs!");
             Points = 50;
             Fees = 29.99;
+
+            int genId = 0;
+            bool duplicateFound = true;
+
+            Random random = new Random();
+
+            while (duplicateFound)
+            {
+                genId = random.Next(5001, 9999);
+
+                for (int i = 0; i < members.Count; i++)
+                {
+                    if (members[i].Id != genId)
+                    {
+                        duplicateFound = false;
+                    }
+                    else
+                    {
+                        duplicateFound = true;
+                    }
+                }
+            }
+            Id = genId;
+
             //add the member to the list
         }
         //

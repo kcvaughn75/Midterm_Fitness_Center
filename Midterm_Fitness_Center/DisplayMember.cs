@@ -27,11 +27,11 @@ namespace Midterm_Fitness_Center
             // Returns a Member if found or a null if not.
             Console.WriteLine("Would you like to look for a member by ID number or name?");
             Console.WriteLine($"1)\tID number");
-            Console.WriteLine($"2)\tName?");
+            Console.WriteLine($"2)\tName");
             int userSelection = UserChoice("Please enter 1 or 2","Invalid input.",2);
             if (userSelection == 1)     // ID search selected by user;
             {
-                int idSearch = UserChoice("Please emter the ID number:", "Please enter a valid whole number", int.MaxValue);
+                int idSearch = UserChoice("Please enter the ID number:", "Please enter a valid whole number", int.MaxValue);
                 try
                 {
                     return IDSearch(idSearch, scMemberList, mcMemberList);
@@ -53,7 +53,7 @@ namespace Midterm_Fitness_Center
                 }
                 catch
                 {
-                    Console.WriteLine($"{userSelection} could not be found in the system.");
+                    Console.WriteLine($"{fName} {lName} could not be found in the system.");
                 }
             }
             return null;
@@ -80,7 +80,7 @@ namespace Midterm_Fitness_Center
                     if (idSearch == mcMemberList[i].Id)
                     {
                         foundIt = i;    // Store index for later
-                        return scMemberList[foundIt];
+                        return mcMemberList[foundIt];
                     }
                 }
             }

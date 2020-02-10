@@ -12,16 +12,13 @@ namespace Midterm_Fitness_Center
         public string Address { get; set; }
 
         //Default constructor
-        public Club()
-        {
-
-        }
+        public Club() { }
 
         //overloaded constructor
         public Club(string name, string address)
         {
             Name = name;
-            Address = address; 
+            Address = address;
         }
 
         //Display Club method
@@ -33,8 +30,5 @@ namespace Midterm_Fitness_Center
                 Console.WriteLine($"{i + 1}. {clubList[i].Name}, {clubList[i].Address}");
             }
         }
-
-
-        
     }
 }

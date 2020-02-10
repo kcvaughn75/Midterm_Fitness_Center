@@ -34,18 +34,16 @@ namespace Midterm_Fitness_Center
         public static string SingleOrMultiSelection()
         {
 
-            bool singleOrMulti = UserSelection("Membership options: Single Club or Multi Club access? Enter: (s/m)", "s", "m");
-            
+            bool singleOrMulti = UserSelection("\nMembership options: \nSingle Club Member for $20/month or Multi Club Member for $30/month  Enter: (s/m)", "s", "m");
+
             if (singleOrMulti)
             {
                 return "single";
             }
             else
             {
-
                 return "multi";
             }
-
         }
 
         public static int UserChoice(string msg, string errorMsg, int limit)
@@ -58,6 +56,7 @@ namespace Midterm_Fitness_Center
                 // check if integer input is valid
                 if ((userOption <= 0) || (userOption > limit))
                 {
+                    Console.Clear();
                     Console.WriteLine(errorMsg);
                     return UserChoice(msg, errorMsg, limit);
                 }
@@ -66,6 +65,7 @@ namespace Midterm_Fitness_Center
             else
             {
                 // if option is NOT an integer
+                Console.Clear();
                 Console.WriteLine(errorMsg);
                 return UserChoice(msg, errorMsg, limit);
             }
@@ -73,9 +73,7 @@ namespace Midterm_Fitness_Center
         //returns sum of all fees accrued for specific member
         public static double GenerateFees(Member currentMember)
         {
-            return currentMember.MonthlyFees;
+            return currentMember.Fees;
         }
-
-        
     }
 }

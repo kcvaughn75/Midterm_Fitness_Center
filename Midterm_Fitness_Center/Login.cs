@@ -13,10 +13,7 @@ namespace Midterm_Fitness_Center
 
 
         //default constructor
-        public Login()
-        {
-
-        }
+        public Login() { }
 
         //overloaded constructor
         public Login(string staffMemberName, string userName, string passWord)
@@ -50,7 +47,7 @@ namespace Midterm_Fitness_Center
 
             while (!validLogin)
             {
-                Console.WriteLine("Please enter your Username:");
+                Console.WriteLine("\nPlease enter your Username:");
                 string userName = Console.ReadLine();
                 Console.WriteLine();
 
@@ -66,27 +63,23 @@ namespace Midterm_Fitness_Center
                             Console.WriteLine();
                             if (passWord == staff.PassWord)
                             {
-                                Console.WriteLine($"{staff.StaffMemberName}, You are successfully logged in!");
+                                Console.WriteLine($"\n{staff.StaffMemberName}, You are successfully logged in!\n");
                                 validLogin = true;
                             }
                             else
                             {
-                                Console.Write("Invalid Password, ");
+                                Console.Write("\nInvalid Password \n");
                             }
                         }
                     }
-
                 }
 
                 if (!validLogin)
                 {
-                    Console.Write("Invalid Username, ");
+                    Console.Write("\nInvalid Username \n");
                 }
-
             }
             return validLogin;
-
         }
     }
-
 }

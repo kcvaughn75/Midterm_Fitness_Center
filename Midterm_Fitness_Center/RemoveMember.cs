@@ -28,7 +28,7 @@ namespace Midterm_Fitness_Center
                         break;
                     }
                 }
-                if (idFound == -1)  // if ID was not found in single club member list
+                if (foundMember == -1)  // if ID was not found in single club member list
                 {
                     for (int i = 0; i < mcMemberList.Count; i++)    // Go through entire multi club member list
                     {
@@ -40,7 +40,7 @@ namespace Midterm_Fitness_Center
                         }
                     }
                 }
-                if (isMultiClub)
+                if (isMultiClub)    // If member is a multi club member
                 {
                     mcMemberList[foundMember].DisplayInfo();
                     if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[foundMember].FirstName} {mcMemberList[foundMember].LastName} from the system? [y/n]", "y", "n"))
@@ -60,7 +60,7 @@ namespace Midterm_Fitness_Center
                         Console.WriteLine("Member remove option cancelled");
                     }
                 }
-                else
+                else // if not a multi club member (single club)
                 {
                     // Confirms, deletes member and updates the Single Member list file.
                     scMemberList[foundMember].DisplayInfo();

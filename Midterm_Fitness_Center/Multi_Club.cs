@@ -8,8 +8,7 @@ namespace Midterm_Fitness_Center
     class Multi_Club : Member
     {
         public int Points { get; set; }
-        public double SwagFees { get; set; }
-
+        
         public Multi_Club() { }
 
         public Multi_Club(int id,string firstName, string lastName, double monthlyFees, int points, double swagFees)

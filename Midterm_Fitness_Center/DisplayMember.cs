@@ -27,7 +27,7 @@ namespace Midterm_Fitness_Center
             // Returns a Member if found or a null if not.
             Console.WriteLine("Would you like to look for a member by ID number or name?");
             Console.WriteLine($"1)\tID number");
-            Console.WriteLine($"2)\tName?");
+            Console.WriteLine($"2)\tName");
             int userSelection = UserChoice("Please enter 1 or 2","Invalid input.",2);
             if (userSelection == 1)     // ID search selected by user;
             {

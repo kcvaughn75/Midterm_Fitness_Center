@@ -1,6 +1,6 @@
-﻿7266|Ruth|Roush|18.82|85
+7266|Ruth|Roush|18.82|85
 1861|Lavonia|Benninger|34.51|69
-2487|Felton|Taber|21.10|79
+2487|Felton|Taber|21.1|79
 6305|Shyla|Fawcett|46.07|47
 1163|Echo|Gerdes|15.89|5
 7832|Taren|Turrell|58.12|36
@@ -23,9 +23,8 @@
 8388|Nicolasa|Junge|63.43|77
 1808|Elvira|Basso|82.49|53
 5677|Filomena|Saladin|2.09|88
-287|Jeramy|Camargo|35.90|77
+287|Jeramy|Camargo|35.9|77
 195|Diego|Foulds|99.97|96
 1852|Florentino|Brunet|53.66|94
 4062|Minerva|Pea|42.38|50
 9275|Mica|Quisenberry|38.13|87
-0001|test|Tester|20.00|50

@@ -8,17 +8,16 @@ namespace Midterm_Fitness_Center
     class Multi_Club : Member
     {
         public int Points { get; set; }
-        
+
         public Multi_Club() { }
 
-        public Multi_Club(int id,string firstName, string lastName, double monthlyFees, int points, double swagFees)
+        public Multi_Club(int id,string firstName, string lastName, double fees, int points)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            MonthlyFees = monthlyFees; 
+            Fees = fees; 
             Points = points;
-            SwagFees = swagFees;
         }
 
 
@@ -46,20 +45,37 @@ namespace Midterm_Fitness_Center
             base.AddMember(clubList, members);
             Console.WriteLine($"{FirstName} can access all the clubs!");
             Points = 50;
-            MonthlyFees = 29.99;
+            Fees = 29.99;
+
+            int genId = 0;
+            bool duplicateFound = true;
+
+            Random random = new Random();
+
+            while (duplicateFound)
+            {
+                genId = random.Next(5001, 9999);
+
+                for (int i = 0; i < members.Count; i++)
+                {
+                    if (members[i].Id != genId)
+                    {
+                        duplicateFound = false;
+                    }
+                    else
+                    {
+                        duplicateFound = true;
+                    }
+                }
+            }
+            Id = genId;
+
             //add the member to the list
         }
         //
         public static int GeneratePointsMulti(Multi_Club currentMember)
         {
             return currentMember.Points;
-        }
-
-        public static void GenerateMultiClubFeeBreakdown(Multi_Club member)
-        {
-            double feeSum = member.MonthlyFees + member.SwagFees;
-            Console.WriteLine($"{member.FirstName}'s Monthly Fees Total: {member.MonthlyFees}  Other Gym Fees Total: {member.SwagFees}  Grand Total: {feeSum}.");
-
         }
     }
 }

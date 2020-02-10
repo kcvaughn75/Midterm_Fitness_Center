@@ -35,8 +35,8 @@ namespace Midterm_Fitness_Center
             new Login ("Erwin", "ErwinCoronel", "Opqr@2345"),
             new Login ("Kyle", "KyleVaughn", "Stuv@6789"),
             new Login ("John", "JohnSmith", "Hijk@3456"),
-            new Login ("test", "test", "test"),
-            new Login ("guest", "guest", "guest"),
+            new Login ("Test", "test", "test"),
+            new Login ("Guest", "guest", "guest"),
         };
 
 
@@ -59,7 +59,6 @@ namespace Midterm_Fitness_Center
                 {
                     if (userName == staff.UserName)
                     {
-
                         while (!validLogin)
                         {
                             Console.WriteLine("Please enter your Password:");
@@ -76,20 +75,17 @@ namespace Midterm_Fitness_Center
                             }
                         }
                     }
-                    else
-                    {
-                        if (!validLogin)
-                        {
-                            Console.Write("Invalid Username, ");
-                            break;
-                        }
 
-                    }
+                }
 
+                if (!validLogin)
+                {
+                    Console.Write("Invalid Username, ");
                 }
 
             }
             return validLogin;
+
         }
     }
 

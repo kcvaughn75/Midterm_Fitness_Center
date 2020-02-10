@@ -17,30 +17,40 @@ namespace Midterm_Fitness_Center
             {
                 int idFound = FindMember(scMemberList, mcMemberList).Id;    // get ID of member found
                 bool isMultiClub = false;
+                int foundMember = -1;
                 // Find ID on the specific member list. Find out if Member is a Single or Multi Club member.
-                foreach (Member person in scMemberList)
+                for (int i = 0; i < scMemberList.Count; i++)    // Go through entire single club member list
                 {
-                    if (person.Id == scMemberList[idFound].Id)  // Try to match ID on Single Club member list
+                    if (idFound == scMemberList[i].Id)  // Try to match ID on Single Club member list
                     {
                         isMultiClub = false;
+                        foundMember = i;
                         break;
                     }
-                    else
+                }
+                if (idFound == -1)  // if ID was not found in single club member list
+                {
+                    for (int i = 0; i < mcMemberList.Count; i++)    // Go through entire multi club member list
                     {
-                        isMultiClub = true;                     // Member belongs to Multi Club member list
-                        break;
+                        if (idFound == mcMemberList[i].Id)
+                        {
+                            isMultiClub = true;                     // Member belongs to Multi Club member list
+                            foundMember = i;
+                            break;
+                        }
                     }
                 }
                 if (isMultiClub)
                 {
-                    if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[idFound].FirstName} {mcMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
+                    mcMemberList[foundMember].DisplayInfo();
+                    if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[foundMember].FirstName} {mcMemberList[foundMember].LastName} from the system? [y/n]", "y", "n"))
                     {
                         // Confirms, deletes member and updates the Multi Club member list file.
-                        mcMemberList.Remove(mcMemberList[idFound]);
-                        StreamWriter writer = new StreamWriter("../../../MultiMembers.txt");
-                        foreach (Member person in mcMemberList)
+                        mcMemberList.Remove(mcMemberList[foundMember]);
+                        StreamWriter writer = new StreamWriter("../../../../MultiMembers.txt");
+                        foreach (Multi_Club person in mcMemberList)
                         {
-                            writer.WriteLine(person);
+                            writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.Fees}|{person.Points}");
                         }
                         writer.Close();
                         Console.WriteLine("Member has been removed from the system");
@@ -53,13 +63,14 @@ namespace Midterm_Fitness_Center
                 else
                 {
                     // Confirms, deletes member and updates the Single Member list file.
-                    if (UserSelection($"\n\nAre you sure you want to remove {scMemberList[idFound].FirstName} {scMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
+                    scMemberList[foundMember].DisplayInfo();
+                    if (UserSelection($"\n\nAre you sure you want to remove {scMemberList[foundMember].FirstName} {scMemberList[foundMember].LastName} from the system? [y/n]", "y", "n"))
                     {
-                        scMemberList.Remove(scMemberList[idFound]);
-                        StreamWriter writer = new StreamWriter("../../../SingleMembers.txt");
-                        foreach (Member person in scMemberList)
+                        scMemberList.Remove(scMemberList[foundMember]);
+                        StreamWriter writer = new StreamWriter("../../../../SingleMembers.txt");
+                        foreach (SingleClubClass person in scMemberList)
                         {
-                            writer.WriteLine(person);
+                            writer.WriteLine($"{person.Id}|{person.FirstName}|{person.LastName}|{person.HomeClub}|{person.Fees}");
                         }
                         writer.Close();
 

@@ -30,14 +30,17 @@ namespace Midterm_Fitness_Center
 
         public override void CheckIn(Club club, Member toCheckIn)
         {
-            
-           // bool temp = FindMemberByIdOrName(//ListName goes here, user Id, useName);
-            if (club.Name == toCheckIn.HomeClub)
+
+            // bool temp = FindMemberByIdOrName(//ListName goes here, user Id, useName);
+            try
             {
-                toCheckIn.CheckedInto = club.Name;
-                Console.WriteLine($"Single club Member{toCheckIn.FirstName} is checked in!");
+                if (club.Name == toCheckIn.HomeClub)
+                {
+                    toCheckIn.CheckedInto = club.Name;
+                    Console.WriteLine($"Single club Member{toCheckIn.FirstName} is checked in!");
+                }
             }
-            else
+            catch
             {
                 Console.WriteLine($"{toCheckIn.FirstName} is not a member of this club, but can drop in for $5 a day!");
                 bool userContinue = UserSelection("Does the member want to pay (y/n)?", "y","n");
@@ -60,7 +63,32 @@ namespace Midterm_Fitness_Center
         public override void AddMember(List<Club> clubList, List<Member> members)
         {
             base.AddMember(clubList, members);
-            
+            int genId = 0;
+            bool duplicateFound = true;
+
+            Random random = new Random();
+
+            while (duplicateFound)
+            {
+                genId = random.Next(0, 5000);
+
+                for (int i = 0; i < members.Count; i++)
+                {
+                    if (members[i].Id != genId)
+                    {
+                        duplicateFound = false;
+                    }
+                    else
+                    {
+                        duplicateFound = true;
+                    }
+                }
+            }
+            Id = genId;
+
+
+
+
             int selectHomeClub = UserChoice(GetUserInput("Enter the number of the club to set as the home club?"), $"Please enter a number between 1-{clubList.Count}", clubList.Count);
             MonthlyFees = 19.99;
         }

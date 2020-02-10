@@ -17,26 +17,29 @@ namespace Midterm_Fitness_Center
             {
                 int idFound = FindMember(scMemberList, mcMemberList).Id;    // get ID of member found
                 bool isMultiClub = false;
+                int foundMember = -1;
                 // Find ID on the specific member list. Find out if Member is a Single or Multi Club member.
-                foreach (Member person in scMemberList)
+                for (int i = 0; i < scMemberList.Count; i++)
                 {
-                    if (person.Id == scMemberList[idFound].Id)  // Try to match ID on Single Club member list
+                    if (idFound == scMemberList[i].Id)  // Try to match ID on Single Club member list
                     {
                         isMultiClub = false;
+                        foundMember = i;
                         break;
                     }
-                    else
+                    else if (idFound == mcMemberList[i].Id)
                     {
                         isMultiClub = true;                     // Member belongs to Multi Club member list
+                        foundMember = i;
                         break;
                     }
                 }
                 if (isMultiClub)
                 {
-                    if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[idFound].FirstName} {mcMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
+                    if (UserSelection($"\n\nAre you sure you want to remove {mcMemberList[foundMember].FirstName} {mcMemberList[foundMember].LastName} from the system? [y/n]", "y", "n"))
                     {
                         // Confirms, deletes member and updates the Multi Club member list file.
-                        mcMemberList.Remove(mcMemberList[idFound]);
+                        mcMemberList.Remove(mcMemberList[foundMember]);
                         StreamWriter writer = new StreamWriter("../../../MultiMembers.txt");
                         foreach (Member person in mcMemberList)
                         {
@@ -53,9 +56,9 @@ namespace Midterm_Fitness_Center
                 else
                 {
                     // Confirms, deletes member and updates the Single Member list file.
-                    if (UserSelection($"\n\nAre you sure you want to remove {scMemberList[idFound].FirstName} {scMemberList[idFound].LastName} from the system? [y/n]", "y", "n"))
+                    if (UserSelection($"\n\nAre you sure you want to remove {scMemberList[foundMember].FirstName} {scMemberList[foundMember].LastName} from the system? [y/n]", "y", "n"))
                     {
-                        scMemberList.Remove(scMemberList[idFound]);
+                        scMemberList.Remove(scMemberList[foundMember]);
                         StreamWriter writer = new StreamWriter("../../../SingleMembers.txt");
                         foreach (Member person in scMemberList)
                         {
